@@ -1,0 +1,26 @@
+
+.search_cat{font-size: 20px;text-align: center;width: 100%;margin-left: 35%;}
+.select1{width: 20%;}
+.btn-font{border-radius: 10px;margin-bottom: 5px;margin-left:10px;font-size: 15px}
+.logo{text-align: center;}
+#ch_psw_div{padding-left: 30%;}
+.ch_psw{margin-top: 50px;color: #33ccff;font-size: x-large;}
+.verify_ch_psw{margin-top: 50px;padding-left: 23%;}
+.verify_ch_psw button{font-size: x-large;border-radius: 10px;color:  #33ccff;}
+.schoolpic{width: 900px; height: 424px;}
+#wel_div{text-align: center;margin-top: 40px;}
+
+
+/*Xtop*/
+.log{height: 50px;width: 50px;margin-left: 36px;}
+.top_right10{float: right;height:50px;padding: 10px 0px;margin-right:124px;}
+#total{margin-right: 12px;}#user10{margin-right: 32px;}
+#top_button{margin: 32px;}
+.list_top{color:white;cursor:pointer;transition: all 0.4s;font-size: 15px;padding: 10px;}
+.list_top:hover{color:#999;text-decoration: none;}
+/*Xtop*/
+.class_top{color: #CD5C5C;background-color: #EEEEEE;border-radius: 10px;padding-left: 15px;box-shadow: 0px 2px 8px #999;margin-top: 15px;margin-left: 15px;}
+.class_table{background-color: #EEEEEE;box-shadow: 0px 2px 8px #999;margin-top: 15px;margin-left: 15px;}
+.ch_psw_banner{width: 95%;margin-top: 3%;margin-left: 3%;}
+.cha_psw{background-color: #EEEEEE;border-radius: 10px;padding-left: 15px;box-shadow: 0px 2px 8px #999;margin-left: 1%;}
+.psw_pan{background-color: #EEEEEE;border-radius: 10px;padding-left: 15px;padding-bottom: 10px;padding-top: 10px;padding-right:15px;box-shadow: 0px 2px 8px #999;}

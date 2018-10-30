@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.ExamAndModelMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.ExamAndModel" >
+    <constructor >
+      <arg column="exam_subject_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="model_class_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="team.njupt.ifit.pojo.ExamAndModel" >
+    insert into exam_model (exam_subject_id, model_class_id)
+    values (#{examSubjectId,jdbcType=INTEGER}, #{modelClassId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.ExamAndModel" >
+    insert into exam_model
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examSubjectId != null" >
+        exam_subject_id,
+      </if>
+      <if test="modelClassId != null" >
+        model_class_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examSubjectId != null" >
+        #{examSubjectId,jdbcType=INTEGER},
+      </if>
+      <if test="modelClassId != null" >
+        #{modelClassId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByModelName" parameterType="int">
+    DELETE FROM exam_model
+    WHERE model_class_id =
+    (SELECT id FROM model_class WHERE model_name = #{modelName})
+  </delete>
+  <delete id="deleteBySubjectName" parameterType="int">
+    DELETE FROM exam_model
+    WHERE exam_subject_id =
+    (SELECT id FROM exam_subject WHERE exam_name = #{subjectName})
+  </delete>
+  <insert id="setModelClassSubject" parameterType="list">
+    insert into exam_model (exam_subject_id,model_class_id)
+    values
+    <foreach collection="examAndModelList" index="index" item="item" separator=",">
+      (#{item.examSubjectId,jdbcType=INTEGER}, #{item.modelClassId,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <delete id="delModelClassSubject" parameterType="team.njupt.ifit.pojo.ExamAndModel">
+    DELETE FROM exam_model
+    WHERE exam_subject_id = #{examAndModel.examSubjectId}
+    AND model_class_id = #{examAndModel.modelClassId}
+  </delete>
+  <select id="countModelClassSubject" parameterType="team.njupt.ifit.pojo.ExamAndModel" resultType="int">
+    SELECT
+    COUNT(1)
+    FROM exam_model
+    WHERE exam_subject_id = #{examAndModel.examSubjectId}
+    AND model_class_id = #{examAndModel.modelClassId}
+  </select>
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.Student" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="student_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_college" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="current_executive_class" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="current_teach_class" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap type="team.njupt.ifit.pojo.dto.StudentDTO" id="StudentDTOMap">
+    <result property="studentId" column="student_id"/>
+    <result property="studentName" column="student_name"/>
+    <result property="studentSex" column="student_sex"/>
+    <result property="studentCollege" column="student_college"/>
+    <result property="currentExecutiveClass" column="current_executive_class"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, student_id, student_name, student_sex, student_college, current_executive_class, 
+    current_teach_class
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="string" >
+    delete from student
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="team.njupt.ifit.pojo.Student" >
+    insert into student (id, student_id, student_name, 
+      student_sex, student_college, current_executive_class, 
+      current_teach_class)
+    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, 
+      #{studentSex,jdbcType=VARCHAR}, #{studentCollege,jdbcType=VARCHAR}, #{currentExecutiveClass,jdbcType=INTEGER}, 
+      #{currentTeachClass,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.dto.StudentDTO" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="studentSex != null" >
+        student_sex,
+      </if>
+      <if test="studentCollege != null" >
+        student_college,
+      </if>
+      <if test="currentExecutiveClass != null" >
+        current_executive_class,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSex != null" >
+        #{studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="studentCollege != null" >
+        #{studentCollege,jdbcType=VARCHAR},
+      </if>
+      <if test="currentExecutiveClass != null" >
+        #{currentExecutiveClass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByStudentIdSelective" parameterType="map" >
+    update student
+    <set >
+      <if test="studentDTO.studentId != null and studentDTO.studentId !=''" >
+        student_id = #{studentDTO.studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentDTO.studentName != null and studentDTO.studentName!=''" >
+        student_name = #{studentDTO.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentDTO.studentSex != null and studentDTO.studentSex !=''" >
+        student_sex = #{studentDTO.studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="studentDTO.studentCollege != null and studentDTO.studentCollege !=''" >
+        student_college = #{studentDTO.studentCollege,jdbcType=VARCHAR},
+      </if>
+      <if test="studentDTO.currentExecutiveClass != null and studentDTO.currentExecutiveClass !=''" >
+        current_executive_class = #{studentDTO.currentExecutiveClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where student_id = #{oldStudentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByStudentId" parameterType="map" >
+    update student
+    set
+      current_teach_class = #{teachClass,jdbcType=VARCHAR}
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectStudentId" resultType="int" parameterType="string">
+    SELECT COUNT(1)
+    FROM student
+    WHERE student_id=#{studentId}
+  </select>
+  <insert id="insertBatchStudent" parameterType="list">
+    insert into student (student_id, student_name,student_sex,student_college,current_executive_class)
+    values
+    <foreach collection="studentDTOList" index="index" item="item" separator=",">
+      (
+      #{item.studentId,jdbcType=VARCHAR}, #{item.studentName,jdbcType=VARCHAR},#{item.studentSex,jdbcType=VARCHAR},
+      #{item.studentCollege,jdbcType=VARCHAR},#{item.currentExecutiveClass,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+  <select id="selectStudent" parameterType="map" resultMap="StudentDTOMap">
+    SELECT
+     student_id,student_name,student_sex,student_college,current_executive_class
+     FROM student
+     <where>
+       <if test="studentId != null and studentId !=''">
+         AND student_id=#{studentId}
+       </if>
+       <if test="studentName != null and studentName !=''">
+         AND student_name LIKE #{studentName}
+       </if>
+       <if test="studentCollege != null and studentCollege !=''">
+         AND student_college=#{studentCollege}
+       </if>
+       <if test="currentExecutiveClass != null and currentExecutiveClass !=''">
+         AND current_executive_class=#{currentExecutiveClass}
+       </if>
+       <if test="teachClass != null and teachClass !=''">
+         AND current_teach_class=#{teachClass}
+       </if>
+       <if test="year != null and year !=''">
+         AND year=#{year}
+       </if>
+     </where>
+  </select>
+  <update id="batchUpdateStudent" parameterType="list">
+    <foreach collection="batchUpdateStudentDTOList" item="item" index="index" open="" close="" separator=";">
+      update student
+      <set>
+        current_teach_class=#{item.classId,jdbcType=VARCHAR},
+        year =#{item.year,jdbcType=VARCHAR}
+      </set>
+      where student_id = #{item.studentId,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+</mapper>

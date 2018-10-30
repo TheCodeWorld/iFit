@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.TeachClassMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.TeachClass" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="class_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="t_teacher_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="shhool_year" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="model_class_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap type="team.njupt.ifit.vo.TeachClassVo" id="TeachClassVoMap">
+    <result property="classId" column="id"/>
+    <result property="className" column="class_name"/>
+      <result property="teacherName" column="t_teacher_name"/>
+  </resultMap>
+  <resultMap type="team.njupt.ifit.vo.SubjectVo" id="SubjectVoMap">
+    <result property="id" column="id"/>
+    <result property="examName" column="exam_name"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, class_name, t_teacher_id, shhool_year, model_class_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from teach_class
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from teach_class
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="team.njupt.ifit.pojo.dto.TeachClassDTO" >
+    insert into teach_class (class_name, t_teacher_id,
+      school_year, model_class_id,standard)
+    values (#{className,jdbcType=VARCHAR}, #{classTeacherId,jdbcType=INTEGER},
+      #{schoolYear,jdbcType=VARCHAR}, #{modelClassId,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.TeachClass" >
+    insert into teach_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="tTeacherId != null" >
+        t_teacher_id,
+      </if>
+      <if test="schoolYear != null" >
+        shhool_year,
+      </if>
+      <if test="modelClassId != null" >
+        model_class_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="tTeacherId != null" >
+        #{tTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolYear != null" >
+        #{schoolYear,jdbcType=VARCHAR},
+      </if>
+      <if test="modelClassId != null" >
+        #{modelClassId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="map" >
+    update teach_class
+    <set >
+      <if test="teachClassDTO.className != null and teachClassDTO.className !=''" >
+        class_name = #{teachClassDTO.className,jdbcType=VARCHAR},
+      </if>
+      <if test="teachClassDTO.classTeacherId != null and teachClassDTO.classTeacherId !=''" >
+        t_teacher_id = #{teachClassDTO.classTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teachClassDTO.schoolYear != null and teachClassDTO.schoolYear !=''" >
+        school_year = #{teachClassDTO.schoolYear,jdbcType=VARCHAR},
+      </if>
+      <if test="teachClassDTO.modelClassId != null and teachClassDTO.modelClassId !=''" >
+        model_class_id = #{teachClassDTO.modelClassId,jdbcType=INTEGER},
+      </if>
+      <if test="teachClassDTO.standard != null and teachClassDTO.standard !=''" >
+        standard = #{teachClassDTO.standard,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{teachClassId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.njupt.ifit.pojo.TeachClass" >
+    update teach_class
+    set class_name = #{className,jdbcType=VARCHAR},
+      t_teacher_id = #{tTeacherId,jdbcType=INTEGER},
+      shhool_year = #{schoolYear,jdbcType=VARCHAR},
+      model_class_id = #{modelClassId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectModelClassUsed" resultType="int" parameterType="string">
+    SELECT COUNT(1)
+    FROM teach_class
+    WHERE model_class_id IN
+    (SELECT id FROM model_class WHERE model_name = #{modelClassName})
+  </select>
+  <select id="modelClassIsUsed" resultType="int" parameterType="int">
+    SELECT COUNT(1)
+    FROM teach_class
+    WHERE model_class_id = #{modelId}
+  </select>
+  <select id="modelSubjectIsUsed" resultType="int" parameterType="int">
+    SELECT COUNT(1)
+    FROM teach_class
+    WHERE model_class_id IN
+    (SELECT model_class_id FROM exam_model WHERE exam_subject_id=#{subjectId})
+  </select>
+  <select id="countTeachClassName" resultType="int" parameterType="string">
+    SELECT
+    COUNT(1)
+    FROM teach_class
+    WHERE class_name = #{className}
+  </select>
+  <select id="selectByYearTeacherName" resultMap="TeachClassVoMap" parameterType="map">
+    SELECT a.id,a.class_name,b.t_teacher_name
+    FROM teach_class AS a LEFT JOIN t_teacher AS b ON a.t_teacher_id = b.id
+    <where>
+      <if test="year != null and year !=''">
+        a.school_year = #{year,jdbcType=VARCHAR}
+      </if>
+      <if test="teacherName != null and teacherName !=''">
+        AND b.t_teacher_name = #{teacherName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="selectMyTClass" resultMap="TeachClassVoMap" parameterType="map">
+    SELECT a.id,a.class_name,a.school_year,b.t_teacher_name,b.t_teacher_id
+    FROM teach_class AS a LEFT JOIN t_teacher AS b ON a.t_teacher_id = b.id
+    <where>
+      <if test="year != null and year !=''">
+        a.school_year = #{year,jdbcType=VARCHAR}
+      </if>
+      AND b.t_teacher_id = #{teacherId}
+    </where>
+  </select>
+  <select id="selectTClassSubject" resultMap="SubjectVoMap" parameterType="string">
+    select k.id as id,k.exam_name,t.id
+    from teach_class as t
+      left join exam_model as m
+      on t.model_class_id = m.model_class_id
+      left join exam_subject as k
+      on k.id = m.exam_subject_id
+      where t.id =#{tclassId}
+  </select>
+  <insert id="insertBatchTClass" parameterType="list">
+    insert into teach_class (class_name, t_teacher_id,school_year,model_class_id,standard,class_id)
+    values
+    <foreach collection="teachClassDTOList" index="index" item="item" separator=",">
+      (
+      #{item.className,jdbcType=VARCHAR}, #{item.classTeacherId,jdbcType=INTEGER},#{item.schoolYear,jdbcType=VARCHAR},
+      #{item.modelClassId,jdbcType=INTEGER},#{item.standard,jdbcType=VARCHAR},#{item.teacherClassId,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+</mapper>

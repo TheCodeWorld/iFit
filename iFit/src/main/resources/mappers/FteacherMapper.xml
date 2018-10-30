@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.FteacherMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.Fteacher" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="f_teacher_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="f_teacher_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, f_teacher_name, f_teacher_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from f_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from f_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="team.njupt.ifit.pojo.Fteacher" >
+    insert into f_teacher (id, f_teacher_name, f_teacher_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{fTeacherName,jdbcType=VARCHAR}, #{fTeacherId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.Fteacher" >
+    insert into f_teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fTeacherName != null" >
+        f_teacher_name,
+      </if>
+      <if test="fTeacherId != null" >
+        f_teacher_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fTeacherName != null" >
+        #{fTeacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="fTeacherId != null" >
+        #{fTeacherId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="team.njupt.ifit.pojo.Fteacher" >
+    update f_teacher
+    <set >
+      <if test="fTeacherName != null" >
+        f_teacher_name = #{fTeacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="fTeacherId != null" >
+        f_teacher_id = #{fTeacherId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.njupt.ifit.pojo.Fteacher" >
+    update f_teacher
+    set f_teacher_name = #{fTeacherName,jdbcType=VARCHAR},
+      f_teacher_id = #{fTeacherId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

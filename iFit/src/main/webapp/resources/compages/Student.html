@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <title>体育部</title>
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>-->
+    <!--<script type="text/javascript" src="js/neon_text.js"></script>-->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!--引入jQuery-->
+    <script src="/resources/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/resources/js/neon_text.js"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+		
+		<!--导入css文件-->
+		<link rel="stylesheet" href="/resources/css/student.css"/>
+		<link rel="stylesheet" href="/resources/css/admin1.css" />
+	  <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert-dev.min.js "></script>
+	  <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css " rel="stylesheet">
+	  <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js "></script>
+	  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js "></script>
+		</head>
+      
+  <body>
+				<div id="top" class="top">
+						<div class="log" style="display: inline;">iFit</div>
+						
+						<div id="top_right" class="top_right" style="display: inline;">
+						<div id="total" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-signal" style="margin-right:5px;"></i><span>0000</span>访问</div>
+						<div id="user" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-user" style="margin-right:5px;"></i><span id="uname"></span></div>
+						<div id="exit" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-log-out" style="margin-right:5px;"></i><span id="loginout">退出</span></div>
+						</div>
+				</div>
+			
+    		<div id="left" class="left_nav">
+    				
+					  <div id="home" class="list"><i class="glyphicon glyphicon-home" style="margin-right:5px ;"></i>首页</div>
+					  <div id="search_grades_nav" class="list"><i class="glyphicon glyphicon-search" style="margin-right:5px ;"></i>成绩查询</div>
+					  <div id="ch_psw_nav" class="list" onclick=""><i class="glyphicon glyphicon-cog" style="margin-right:5px ;"></i>修改密码</div>
+					
+    	</div>
+    	
+    	
+    	
+    		<div id="right1" class="right_content">
+    			<div id="button" class="button" style="display: none;"><!--右上-->
+	      			<input type="button" value="新增" class="btn btn-primary"/>
+	      			<input type="button" value="导入教工名单" class="btn btn-primary"/>
+      		</div>
+		      	<div id="tableD" class="tableD"> <!--大右下-->
+		      		<div id="search_grades_div" class="table" style="display: none;">
+		      			<div class="class_top">
+		      				<span class="glyphicon glyphicon-search"></span>
+		      				查询种类：
+							  <select id="select_cat" class="form-control select1" style="display: inline;">
+							      <option id="ser_grad_opt1"></option>
+							      <option id="ser_grad_opt2"></option>
+							      <option id="ser_grad_opt3"></option>
+							      <option id="ser_grad_opt4"></option>
+							      <option id="ser_grad_opt5"></option>
+							      <option id="ser_grad_opt6"></option>
+							      <option id="ser_grad_opt7"></option>
+							      <option id="ser_grad_opt8"></option>
+								  <option id="ser_grad_opt9"></option>
+							    </select>
+							<button id="btn_search" type="button" class="btn btn-primary btn-font">查 询</button>
+		      			</div>
+		      			<div class="class_table">
+		      			<table id="table_result" class="table table-hover table-responsive">
+							<thead>
+								<tr class="info">
+									<th>项目</th>
+									<th>项目成绩</th>
+									<th>得分</th>
+								</tr>
+							</thead>
+							<tbody id="tbody-result">
+							</tbody>
+							</table>
+							</div>
+		      		</div>
+		      	</div>
+		      		<!--修改密码-->
+		      		<div id="psw" style="display: none;" class="ch_psw_banner">
+		      				<span class="glyphicon glyphicon-lock " style="font-size: 2em;color: #CD5C5C;">修改密码</span>
+		      				<hr style="height: 1px;border-top:3px solid #EEEEEE;" />
+		      				<div style="background-color: #EEEEEE;border-radius: 10px;padding-left: 15px;padding-bottom: 10px;padding-top: 10px;padding-right:15px;box-shadow: 0px 2px 8px #999;">
+		      					<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">
+				      				<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">旧密码:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				      				<input id="psw1" type="password" class="form-control" placeholder="请输入旧密码" style="width: 50%;height: 50px;"/>
+				      				<span id="psw1_tip"></span>
+			      				</div> <br />
+			      				<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">
+				      				<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">新密码:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				      				<input id="psw2" type="password" class="form-control" placeholder="请输入新密码" style="width: 50%;height: 50px;"/>
+				      				<span id="psw2_tip"></span>
+			      				</div> <br />
+			      			   <div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">
+				      				<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">确认密码:</span>
+				      				<input id="psw3" type="password" class="form-control" placeholder="请确认新密码" style="width: 50%;height: 50px;"/>
+				      				<span id="psw3_tip"></span>
+			      				</div> <br />
+			      						<button id="btn_Ok" class="btn btn-primary"  style="width: 100px;margin-left: 3%;">确认</button>&nbsp;&nbsp;&nbsp;&nbsp; 
+			      						<button id="btn_canel" class="btn btn-primary" type="reset" style="width: 100px;">取消</button>			      			
+		      				</div>
+		      			
+		      		</div>
+		      		
+		      		<!--首页-->
+							<div id="welcome_div" style="display: none;">
+		      			<div id="wel_div">
+		      				<font id="wel_f"><div id="p1">欢迎登陆iFit</div><div id="p2">厚德、弘毅、求是、笃行</div></font>
+		      			</div>
+		      		</div>
+		      		
+      <script type="text/javascript" src="/resources/js/student.js"></script>
+			</div>
+  </body>
+</html>

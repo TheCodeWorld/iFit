@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.ScoreRangeMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.ScoreRange" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="min" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="max" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="score" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="exam_standard_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap type="team.njupt.ifit.pojo.ScoreRange" id="ScoreRangeMap">
+    <result property="id" column="id"/>
+    <result property="min" column="min"/>
+    <result property="max" column="max"/>
+    <result property="score" column="score"/>
+  </resultMap>
+  <resultMap type="team.njupt.ifit.pojo.SubjectAndRange" id="SubjectAndRangeMap">
+    <result property="name" column="exam_name"/>
+    <result property="weight" column="weight"/>
+    <collection property="scoreList" ofType="team.njupt.ifit.pojo.ScoreRange">
+      <result property="id" column="id"/>
+      <result property="min" column="min"/>
+      <result property="max" column="max"/>
+      <result property="score" column="score"/>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, min, max, score, exam_standard_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from range_score
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from range_score
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="map" >
+    insert into range_score ( min, max,
+      score, exam_standard_id)
+    values (#{scoreRangeDTO.min,jdbcType=INTEGER}, #{scoreRangeDTO.max,jdbcType=INTEGER},
+      #{scoreRangeDTO.score,jdbcType=INTEGER}, #{modelStandardId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.ScoreRange" >
+    insert into range_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="min != null" >
+        min,
+      </if>
+      <if test="max != null" >
+        max,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="examStandardId != null" >
+        exam_standard_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="min != null" >
+        #{min,jdbcType=INTEGER},
+      </if>
+      <if test="max != null" >
+        #{max,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="examStandardId != null" >
+        #{examStandardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="team.njupt.ifit.pojo.ScoreRange" >
+    update range_score
+    <set >
+      <if test="min != null" >
+        min = #{min,jdbcType=INTEGER},
+      </if>
+      <if test="max != null" >
+        max = #{max,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.njupt.ifit.pojo.ScoreRange" >
+    update range_score
+    set min = #{min,jdbcType=INTEGER},
+      max = #{max,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      exam_standard_id = #{examStandardId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteBySubjectId" parameterType="int">
+    DELETE FROM range_score
+    WHERE exam_standard_id =
+    (SELECT id FROM exam_standard WHERE exam_subject_id = #{subjectId})
+  </delete>
+  <delete id="deleteByStandardId" parameterType="int">
+    DELETE FROM range_score
+    WHERE exam_standard_id = #{standardId}
+  </delete>
+  <select id="selectAllByStandardId" resultMap="ScoreRangeMap" parameterType="int">
+    SELECT id, min, max, score
+    FROM range_score
+    WHERE exam_standard_id = #{standardId}
+  </select>
+  <select id="selectStandardIdById" resultType="int" parameterType="int">
+    SELECT exam_standard_id
+    FROM range_score
+    WHERE id = #{id}
+  </select>
+  <select id="selectSubjectAndRange" parameterType="map" resultMap="SubjectAndRangeMap">
+    SELECT tc.id,es.exam_name,rs.id,rs.min,rs.max,rs.score,exs.weight,exs.exam_standard_name
+    FROM teach_class as tc
+    LEFT JOIN exam_model as em
+    ON tc.model_class_id = em.model_class_id
+    LEFT JOIN exam_subject es
+    on es.id = em.exam_subject_id
+    LEFT JOIN exam_standard as exs
+    on exs.exam_subject_id = es.id
+    LEFT JOIN range_score as rs
+    ON rs.exam_standard_id = exs.id
+    WHERE tc.id = #{classId,jdbcType=INTEGER} AND exs.exam_standard_name = #{standardName,jdbcType=VARCHAR}
+  </select>
+</mapper>

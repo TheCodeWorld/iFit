@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.ScoreMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.Score" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="student_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="json_score" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="year" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sum_score" jdbcType="DOUBLE" javaType="java.lang.Double" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ScoreVoMap" type="team.njupt.ifit.vo.ScoreVo">
+    <result property="studentId" column="student_id"/>
+    <result property="studentName" column="student_name"/>
+    <result property="grade" column="grade"/>
+    <result property="sumSocore" column="sum_score"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, student_id, student_name, json_score, year, sum_score
+  </sql>
+  <select id="selectByStudentIdYear" resultType="string" parameterType="map" >
+    select 
+    json_score
+    from score
+    where student_id = #{studentId,jdbcType=VARCHAR}
+    AND year = #{year,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from score
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="team.njupt.ifit.pojo.Score" >
+    insert into score (id, student_id, teach_class_id, 
+      json_score, year, sum_score
+      )
+    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{teachClassId,jdbcType=INTEGER}, 
+      #{jsonScore,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{sumScore,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.Score" >
+    insert into score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="teachClassId != null" >
+        teach_class_id,
+      </if>
+      <if test="jsonScore != null" >
+        json_score,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="sumScore != null" >
+        sum_score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="teachClassId != null" >
+        #{teachClassId,jdbcType=INTEGER},
+      </if>
+      <if test="jsonScore != null" >
+        #{jsonScore,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="sumScore != null" >
+        #{sumScore,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="team.njupt.ifit.pojo.Score" >
+    update score
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="teachClassId != null" >
+        teach_class_id = #{teachClassId,jdbcType=INTEGER},
+      </if>
+      <if test="jsonScore != null" >
+        json_score = #{jsonScore,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="sumScore != null" >
+        sum_score = #{sumScore,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.njupt.ifit.pojo.Score" >
+    update score
+    set student_id = #{studentId,jdbcType=INTEGER},
+      teach_class_id = #{teachClassId,jdbcType=INTEGER},
+      json_score = #{jsonScore,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      sum_score = #{sumScore,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectExcutiveClassScore" resultMap="ScoreVoMap" parameterType="map">
+    SELECT score.student_id,score.student_name,score.sum_score,score.grade FROM score
+    <where>
+      <if test="year != null and year !=''">
+        year = #{year}
+      </if>
+      <if test="flag != null and flag !='' and flag ==1 ">
+        AND sum_score = #{score}
+      </if>
+      <if test="flag != null and flag !='' and flag ==2 ">
+        AND sum_score <![CDATA[>]]> #{score}
+      </if>
+      <if test="flag != null and flag !='' and flag ==3 ">
+        AND sum_score <![CDATA[<]]> #{score}
+      </if>
+      <if test="eclassname != null and eclassname !=''">
+        AND score.student_id in
+        (select student.student_id from student where student.current_executive_class= #{eclassname})
+      </if>
+    </where>
+    ORDER BY score.student_id
+  </select>
+  <select id="selectTeachClassScore" resultMap="ScoreVoMap" parameterType="map">
+    SELECT score.student_id,score.student_name,score.sum_score,score.grade FROM score
+    <where>
+      <if test="flag != null and flag !='' and flag ==1 ">
+        AND sum_score = #{score}
+      </if>
+      <if test="flag != null and flag !='' and flag ==2 ">
+        AND sum_score <![CDATA[>]]> #{score}
+      </if>
+      <if test="flag != null and flag !='' and flag ==3 ">
+        AND sum_score <![CDATA[<]]> #{score}
+      </if>
+      <if test="tclassname != null and tclassname !=''">
+        AND teach_class_id = #{tclassname}
+      </if>
+    </where>
+    ORDER BY score.student_id
+  </select>
+  <select id="selectScoreForExport" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM score
+    <where>
+      <if test="year != null and year !=''">
+        year = #{year}
+      </if>
+      <if test="classId != null and classId !=''">
+        AND teach_class_id = #{classId}
+      </if>
+    </where>
+    ORDER BY score.student_id
+  </select>
+  <select id="likeSelectTClassName" resultType="list" parameterType="string">
+    SELECT class_name
+    FROM teach_class
+    WHERE class_name LIKE #{key}
+  </select>
+  <insert id="insertScore" parameterType="list">
+    insert into score (student_id, student_name,teach_class_id,json_score,year,sum_score,grade)
+    values
+    <foreach collection="scoreDTOList" index="index" item="item" separator=",">
+      (
+      #{item.studentId,jdbcType=VARCHAR}, #{item.studentName,jdbcType=VARCHAR},#{item.classId,jdbcType=INTEGER},
+      #{item.jsonScore,jdbcType=VARCHAR},#{item.year,jdbcType=VARCHAR},#{item.sumScore,jdbcType=DOUBLE},#{item.grade,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+  <select id="countByStudentIdYear" parameterType="map" resultType="int">
+    SELECT COUNT(1)
+    FROM score
+    WHERE
+    student_id=#{studentId} AND year=#{year}
+  </select>
+</mapper>

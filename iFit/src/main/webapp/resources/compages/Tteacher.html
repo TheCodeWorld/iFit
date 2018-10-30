@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <title>体育部</title>
+    <!--引入jQuery-->
+    <script src="/resources/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/resources/js/neon_text.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<!--导入css文件-->
+		<link rel="stylesheet" href="/resources/css/admin1.css" />
+		<link rel="stylesheet" href="/resources/css/student.css"/>
+		<link rel="stylesheet" href="/resources/css/Fteacher.css" />
+		<link rel="stylesheet" href="/resources/css/Tteacher.css" />
+	  <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert-dev.min.js "></script>
+	  <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css " rel="stylesheet">
+	  <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js "></script>
+	  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js "></script>
+		</head>
+      
+    <body>
+		
+				<div id="top" class="top">
+						<div class="log" style="display: inline;">iFit</div>
+						
+						<div id="top_right" class="top_right" style="display: inline;">
+						<div id="total" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-signal" style="margin-right:5px;"></i><span>0000</span>访问</div>
+						<div id="user" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-user" style="margin-right:5px;"></i><span id="uname"></span></div>
+						<div id="exit" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-log-out" style="margin-right:5px;"></i><span id="loginout">退出</span></div>
+						</div>
+				</div>
+				
+			
+    		<div id="left" class="left_nav">
+    				
+					  <div id="home" class="list"><i class="glyphicon glyphicon-home" style="margin-right:5px ;"></i>首页</div>
+					  <div id="ch_psw_nav" class="list" onclick=""><i class="glyphicon glyphicon-cog" style="margin-right:5px ;"></i>修改密码</div>
+						<div id="search_grades_nav" class="list"><i class="glyphicon glyphicon-search" style="margin-right:5px ;"></i>成绩管理
+					  	<i class="glyphicon glyphicon-menu-right" style="float:right;margin-top: 8px;"></i></div>
+					  	<div id="add_li1" class="add_li">
+					  		<a id="stu_manage" href="#" class="list-group-item">学生成绩查询</a>
+					   	</div>
+						<div id="class_manage_nav" class="list"><i class="glyphicon glyphicon-info-sign" style="margin-right:5px ;"></i>教学班管理
+					  	<i class="glyphicon glyphicon-menu-right" style="float:right;margin-top: 8px;"></i></div>
+					  	<div id="add_li2" class="add_li">
+					  		<a id="stu_manage_nav" href="#" class="list-group-item" data-toggle="modal">教学班学生管理</a>
+					  		<a id="gra_search_nav" href="#" class="list-group-item" data-toggle="modal">教学班成绩查询</a>
+					  		<a id="gra_in_nav" href="#" class="list-group-item" data-toggle="modal">教学班成绩录入</a>
+					   	</div>
+    		</div>
+    		
+    		
+    		
+    		<div id="right1" class="right_content">
+    			<!--学生成绩查询-->
+    			  <div id="button" class="button" style="display: none;">
+	      			<input id="btn_add_stu" type="button" value="新增学生" class="btn btn-primary" style="color: #ffffff;margin-top: 5px;margin-bottom: 5px;" data-toggle="modal"/>
+	      			&nbsp;&nbsp;
+	      			<input type="button" value="导入学生" class="btn btn-primary" style="margin-top: 5px;margin-bottom: 5px;"/>
+				  </div>
+		      	<div id="tableD" class="tableD"> <!--大右下-->
+		      		<div id="search_grades_div" class="table" style="display: none;">
+		      			<div class="class_top">
+		      				<span class="glyphicon glyphicon-user"></span>
+		      				学号：<input id="studentId" type="text" placeholder="请输入学号"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		      				<div style="display: inline;">
+		      					<span class="glyphicon glyphicon-search"></span>
+		      					查询种类：
+									  <select id="select_cat" class="form-control select1" style="display: inline;">
+									      <option id="ser_grad_opt1"></option>
+									      <option id="ser_grad_opt2"></option>
+									      <option id="ser_grad_opt3"></option>
+									      <option id="ser_grad_opt4"></option>
+									      <option id="ser_grad_opt5"></option>
+									      <option id="ser_grad_opt6"></option>
+									      <option id="ser_grad_opt7"></option>
+									      <option id="ser_grad_opt8"></option>
+										  <option id="ser_grad_opt9"></option>						  
+									    </select>
+							  			<button id="ser_stu_score" type="button" class="btn btn-primary btn-font" style="display: inline;">查 询</button>
+		      				</div>
+		      			</div>
+		      			<div class="class_table">
+			      			<table id="table_result" class="table table-hover table-responsive">
+										<thead>
+											<tr class="info">
+												<th>项目</th>
+												<th>项目成绩</th>
+												<th>得分</th>
+											</tr>
+										</thead>
+								<tbody id="tbody-result">
+								</tbody>
+								</table>
+						</div>
+		      		</div>
+		      		<!--修改密码-->
+		      		<div id="psw" style="display: none;" class="ch_psw_banner">
+		      				<span class="glyphicon glyphicon-lock " style="font-size: 2em;color: #CD5C5C;">修改密码</span>
+		      				<hr style="height: 1px;border-top:3px solid #EEEEEE;" />
+		      				<div style="background-color: #EEEEEE;border-radius: 10px;padding-left: 15px;padding-bottom: 10px;padding-top: 10px;padding-right:15px;box-shadow: 0px 2px 8px #999;">
+		      					<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">
+				      				<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">旧密码:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				      				<input id="psw1" type="password" class="form-control" placeholder="请输入旧密码" style="width: 50%;height: 50px;"/>
+				      				<span id="psw1_tip"></span>
+			      				</div> <br />
+			      				<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">
+				      				<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">新密码:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				      				<input id="psw2" type="password" class="form-control" placeholder="请输入新密码" style="width: 50%;height: 50px;"/>
+				      				<span id="psw2_tip"></span>
+			      				</div> <br />
+			      			   <div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 20px;padding-top: 10px;padding-bottom: 10px;">
+				      				<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">确认密码:</span>
+				      				<input id="psw3" type="password" class="form-control" placeholder="请确认新密码" style="width: 50%;height: 50px;"/>
+				      				<span id="psw3_tip"></span>
+			      				</div> <br />
+			      						<button id="btn_Ok" class="btn btn-primary" type="submit" style="width: 100px;margin-left: 3%;">确认</button>&nbsp;&nbsp;&nbsp;&nbsp; <button class="btn btn-primary" type="reset" style="width: 100px;">取消</button>			      			
+		      				</div>
+		      		</div>
+		  
+		      		<!--首页-->
+		      		<div id="welcome_div" style="display: block;">
+		      			<div style="width: 100%;text-align: center;"><img class="schoolpic" src="/resources/images/图一.jpg" /></div>
+		      			<div id="wel_div">
+		      				<font id="wel_f"><div id="p1">欢迎登陆iFit</div><div id="p2">厚德、弘毅、求是、笃行</div></font>
+		      			</div>
+		      		</div>
+		      		<!--教学班学生管理-->
+		      		<div id="class_stu_mana" class="class_table" style="display: none;">
+		      			<table id="table_class_stu_mana" class="table table-hover table-responsive" >
+									<thead>
+									</thead>
+							<tbody id="tbody_class_stu_mana">
+							</tbody>
+							</table>
+		      		</div>
+					<!--删除学生强提示的模态框-->
+					<div class="modal fade bs-example-modal-sm" id="dele_stu_prompt">
+						<div class="modal-dialog modal-sm">-
+							<div class="modal-content">
+								<div class="modal-header" style="background-color: #337ab7">
+									<button type="button" class="close" >
+										<span aria-hidden="true" id="dele_stu_prompt_cancel">&times;</span>
+									</button>
+									<h4 class="modal-title" style="color: #ffffff;">提示</h4>
+								</div>
+								<div class="modal-body" style="height: 80px;text-align: center">
+									<h4>确定要删除吗？</h4>
+								</div>
+								<div class="modal-footer" style="height: 50px">
+									<button class="btn btn-primary btn-sm" id="submit_dele_stu_prompt">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+		      		<!--教学班成绩查询-->
+					<div class="class_top" id="ser_score">
+						<div style="display: inline;">
+							<span class="glyphicon glyphicon-search"></span>
+						</div>
+						总分：
+						<select id="flag" class="form-control select1" style="width: 80px;display: inline;">
+							<option id="over">></option>
+							<option id="below"><</option>
+							<option id="equal">=</option>
+						</select>
+						<input type="text" id="filter" style="width: 40px;height: 33px;color: black"/>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button id="ser_tscore_btn" type="button" class="btn btn-primary btn-font" style="display: inline;">查 询</button>
+						<button id="ser_alltscore_btn" type="button" class="btn btn-primary btn-font" style="display: inline;">查询所有</button>
+					</div>
+		      		<div id="class_grad_sear" class="class_table" style="display: none;">
+		      				<table class="table table-hover" id="table_class_stu_score">
+									<thead>
+										<tr class="info">
+											<th><font size="4">学号</font></th>
+											<th><font size="4">姓名</font></th>
+											<th><font size="4">总分</font></th>
+											<th><font size="4">等级</font></th>
+											<th><font size="4">操作</font></th>
+										</tr>
+									</thead>
+							<tbody id="tbody_tclass_score">
+							</tbody>
+							</table>
+		      		</div>
+		      		<!--教学班成绩录入-->
+					<div class="score_in_banner" style="display: none;color: #337ab7">&nbsp;
+						<h4 id="tclass_name_scorein_h2" style="color: #337ab7"></h4>
+						<h4>
+							<input type="radio" class="tap" value="right" name="choose_direc" checked="true"/><span style="color: #337ab7">向右跳转</span>&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" class="tap" value="bellow" name="choose_direc"/><span style="color: #337ab7">向下跳转</span>
+							<span style="margin-left: 10%;font-size: 15px;">*输入成绩后，按Tab键进行跳转和保存</span>
+						</h4>
+					</div>
+		      		<div id="grade_in" style="display: none;">
+		      			<div class="class_table">
+		      				<table class="table table-hover table-responsive" id="table_scorein">
+								<thead id="thead_scorein" style="width: 100%">
+								</thead>
+								<tbody id="tbody_scorein">
+								</tbody>
+							</table>
+		      			</div>
+		      		</div>
+
+					<!--体育老师查询教学班，模态框-->
+					<div class="modal fade" id="my_tclass">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" >
+										<span aria-hidden="true" id="cancel_select_class">&times;</span>
+									</button>
+									<h4 class="modal-title" style="color: #CD5C5C;">选择教学班</h4>
+								</div>
+								<div class="modal-body">
+									<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 40px;padding-top: 10px;padding-bottom: 10px;">
+										<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;选择学年:&nbsp;&nbsp;&nbsp</span>
+										<select id="select_year" class="selectpicker form-control" style="height: 50px;width: 80%;">
+											<option>--请选择--</option>
+											<option>2017年第一学期</option>
+											<option>2017年第二学期</option>
+											<option>2016年第一学期</option>
+											<option>2016年第二学期</option>
+										</select>
+									</div>
+									<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 40px;padding-top: 10px;padding-bottom: 10px;">
+										<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">&nbsp;&nbsp;&nbsp;选择教学班:&nbsp;</span>
+										<select id="select_class" class="selectpicker form-control" style="height: 50px;width: 80%;">
+											<!--动态增加-->
+										</select>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<!--<button class="btn btn-default" data-dismiss="modal" id="submit_myclass">提交</button>-->
+									<button class="btn btn-primary" id="submit_myclass">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--体育老师查询教学班成绩，模态框-->
+					<div class="modal fade" id="my_tclass_score">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" >
+										<span aria-hidden="true" id="cancel_select_class_score">&times;</span>
+									</button>
+									<h4 class="modal-title" style="color: #CD5C5C;">选择教学班</h4>
+								</div>
+								<div class="modal-body">
+									<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 40px;padding-top: 10px;padding-bottom: 10px;">
+										<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;选择学年:&nbsp;&nbsp;&nbsp</span>
+										<select id="select_year_score" class="selectpicker form-control" style="height: 50px;width: 80%;">
+											<option>--请选择--</option>
+											<option>2017年第一学期</option>
+											<option>2017年第二学期</option>
+											<option>2016年第一学期</option>
+											<option>2016年第二学期</option>
+										</select>
+									</div>
+									<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 40px;padding-top: 10px;padding-bottom: 10px;">
+										<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">&nbsp;&nbsp;&nbsp;选择教学班:&nbsp;</span>
+										<select id="select_class_score" class="selectpicker form-control" style="height: 50px;width: 80%;">
+											<!--动态增加-->
+										</select>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<!--<button class="btn btn-default" data-dismiss="modal" id="submit_myclass">提交</button>-->
+									<button class="btn btn-primary" id="submit_myclass_score">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--教学班成绩录入选择学年和班级，模态框-->
+					<div class="modal fade" id="my_tclass_scorein">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" >
+										<span aria-hidden="true" id="cancel_select_class_scorein">&times;</span>
+									</button>
+									<h4 class="modal-title" style="color: #CD5C5C;">选择教学班</h4>
+								</div>
+								<div class="modal-body">
+									<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 40px;padding-top: 10px;padding-bottom: 10px;">
+										<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;选择学年:&nbsp;&nbsp;&nbsp</span>
+										<select id="select_year_scorein" class="selectpicker form-control" style="height: 50px;width: 80%;">
+											<option>--请选择--</option>
+											<option>2017年第一学期</option>
+											<option>2017年第二学期</option>
+											<option>2016年第一学期</option>
+											<option>2016年第二学期</option>
+										</select>
+									</div>
+									<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 40px;padding-top: 10px;padding-bottom: 10px;">
+										<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">&nbsp;&nbsp;&nbsp;选择教学班:&nbsp;</span>
+										<select id="select_class_scorein" class="selectpicker form-control" style="height: 50px;width: 80%;">
+											<!--动态增加-->
+										</select>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<!--<button class="btn btn-default" data-dismiss="modal" id="submit_myclass">提交</button>-->
+									<button class="btn btn-primary" id="submit_myclass_scorein">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--新增学生，模态框-->
+					<div class="modal" id="add_stu">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" style="color: #CD5C5C;">新增学生</h4>
+								</div>
+								<div class="modal-body">
+									<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 40px;padding-top: 10px;padding-bottom: 10px;">
+										<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;学号:&nbsp;&nbsp;&nbsp;</span>
+										<input id="add_stu_sno" type="text" class="form-control" placeholder="请输入学号" style="width: 80%;height: 50px;"/>
+										<span id="add_stu_sno_tip"></span>
+									</div>
+									<div class="input-group" style="font-size:20px;color:#CD5C5C;border-radius:10px;padding-left: 40px;padding-top: 10px;padding-bottom: 10px;">
+										<span class="input-group-addon" style="color: #CD5C5C;font-size: 20px;">&nbsp;&nbsp;教学班:&nbsp;&nbsp;</span>
+										<input id="add_stu_sclass" type="text" class="form-control" readonly="true" style="width: 80%;height: 50px;"/>
+										<span id="add_stu_sclass_tip"></span>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<button id="submit_add_stu" class="btn bbtn-primary" data-dismiss="modal">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--查看学生详情，模态框-->
+					<div class="modal" id="look_detail_modal">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" style="color: #CD5C5C;">学生成绩详情</h4>
+								</div>
+								<div class="modal-body">
+									<table id="table_detail" class="table table-hover table-responsive">
+										<thead>
+											<tr><th>项目</th><th>项目成绩</th><th>得分</th></tr>
+										</thead>
+										<tbody id="tbody_detail">
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+		      	</div>	
+			</div>
+      <script type="text/javascript" src="/resources/js/Tteacher.js"></script>
+	</body>
+</html>

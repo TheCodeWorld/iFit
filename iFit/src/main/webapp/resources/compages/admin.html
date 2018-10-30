@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <title>体育部</title>
+    <!--引入jQuery-->
+    <script src="/resources/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/resources/js/neon_text.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	  	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<!--导入css文件-->
+		<link rel="stylesheet" href="/resources/css/admin_strong.css"/>
+		
+		
+		
+		<!--&lt;!&ndash;导入bootstrap的下拉选项框&ndash;&gt;-->
+		<!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">-->
+
+		<!--&lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>-->
+
+	  	<!--SweetAlert-->
+	  	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert-dev.min.js"></script>
+	  	<link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+	  	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
+	  	<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+
+		</head>
+      
+  <body>
+  				
+				<div id="top" class="top">
+						<div class="log" style="display: inline;">iFit</div>
+						<div id="top_right" class="top_right" style="display: inline;">
+							
+
+						<div id="total" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-signal" style="margin-right:5px;"></i><span>0000</span>访问</div>
+						<div id="user" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-user" style="margin-right:5px;"></i><span>user</span></div>
+						<div id="exit" style="display: inline;" class="list_top"><i class="glyphicon glyphicon-log-out" style="margin-right:5px;"></i><span>退出</span></div>
+
+							
+						</div>
+				</div>
+				
+			
+				<!--导航栏-->
+    		<div id="left" class="left_nav">
+    				<!--首页-->
+					  <div id="home" class="list"><i class="glyphicon glyphicon-home" style="margin-right:5px ;"></i>首页</div>
+					  
+					  <!--账号管理-->
+					  <div id="account">
+					  <div class="list" id="account_m"><i class="glyphicon glyphicon-user" style="margin-right:5px ;"></i>账号管理
+					  	<i class="glyphicon glyphicon-menu-right" style="margin-top: 4px;float: right;"></i></div>
+					  	<div class="add_li">
+					  		
+					  		<div class="list_next" id="account_next"><i class="glyphicon glyphicon-refresh" style="margin-right:5px ;"></i>学生/教工信息更新
+					  			<i class="glyphicon glyphicon-plus" style="float:right;margin-top: 2px;" id="plus_minus"></i></div>
+					  		<div class="list_last">
+					  		<a href="#" class="list-group-item" id="2">查询学生信息</a>
+					  		<a href="#" class="list-group-item" id="3">查询教工信息</a>
+					  		<a href="#" class="list-group-item" id="4">编辑学生信息</a>
+					  		<a href="#" class="list-group-item" id="5">编辑教工信息</a>
+					  		</div>  		
+					  		
+					  		<div class="list_next" id="change_password"><i class="glyphicon glyphicon-lock" style="margin-right:5px ;"></i>修改密码</div>
+					  	</div>
+					  </div>
+					  
+					  <!--成绩管理-->
+					  <div>
+					  <div class="list" id="exam"><i class="glyphicon glyphicon-search" style="margin-right:5px ;"></i>成绩管理
+					  <i class="glyphicon glyphicon-menu-right" style="float:right;margin-top: 4px;"></i></div>
+					  <div class="add_li" style="text-align: center;">
+					  	<a href="#" class="list-group-item" id="6">学生成绩查询</a>
+					  	<a href="#" class="list-group-item" id="7">行政班成绩查询</a>
+					  	<a href="#" class="list-group-item" id="8">教学班成绩查询</a>
+					  	<a href="#" class="list-group-item" id="9">导出体侧成绩</a>
+					  </div>
+					  </div>
+					  
+					  
+					  <!--教学班管理-->
+					  <div>
+					  <div class="list" id="learn"><i class="glyphicon glyphicon-info-sign" style="margin-right:5px ;"></i>教学班管理
+					  <i class="glyphicon glyphicon-menu-right" style="float:right;margin-top: 4px;"></i></div>
+						<div class="add_li" style="text-align: center;">
+							<a href="#" class="list-group-item" id="10">教学班查询</a>
+					  	<a href="#" class="list-group-item" id="11">教学班学生管理</a>
+					  	<a href="#" class="list-group-item" id="12">教学班成绩录入</a>
+					  	<a href="#" class="list-group-item" id="13">新增教学班</a>
+					  </div>					  
+					  </div>
+					  
+					  
+	  				<!--考试科目模板管理-->
+	  				<div>
+					  <div class="list" id="design"><i class="glyphicon glyphicon-cog" style="margin-right:5px ;"></i>考试科目模板管理
+					  <i class="glyphicon glyphicon-menu-right" style="float:right;margin-top: 4px;"></i></div>
+						
+						<div class="add_li" style="text-align: center;">
+						<a href="#" class="list-group-item" id="NEW13">设置模板类型</a>
+					  	<a href="#" class="list-group-item" id="14">设置模板科目</a>
+					  	<a href="#" class="list-group-item" id="15">设置模板标准</a>
+					  	<a href="#" class="list-group-item" id="16">设置模板得分范围   </a>
+					  </div>					  
+					  </div>
+					  
+					  <!--补考管理-->
+					  <div>
+					  <div class="list" id="reset"><i class="glyphicon glyphicon-repeat" style="margin-right:5px ;"></i>补考管理
+					  <i class="glyphicon glyphicon-menu-right" style="float:right;margin-top: 4px;"></i></div>
+					  <div class="add_li" style="text-align: center;">
+					  	<a href="#" class="list-group-item" id="17">成绩更新</a>
+					  </div>
+						</div>
+						
+    	</div>
+    	<!--导航栏-->	
+    		
+			
+			<div class="all">
+			<!--首页-->
+				<div id="admin_home" class="right_content">
+					<div class="admin_content">
+						
+						<!--Flash-->
+						
+						
+						<!--轮播-->
+						<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+							  
+							  <ol class="carousel-indicators">
+							    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+							    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+							  </ol>
+							
+							 
+							  <div class="carousel-inner" role="listbox">
+							    <div class="item active">
+							      <img src="/resources/images/图一.jpg">
+							      <div class="carousel-caption">
+							        	不忘初心 继续前进
+							      </div>
+							    </div>
+							    
+							    <div class="item">
+							      <img src="/resources/images/图二.jpg">
+							      <div class="carousel-caption">
+							        	学习 贯彻落实党的十九大精神
+							      </div>
+							    </div>
+							    
+							  </div>
+							
+								  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+								    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								    <span class="sr-only">Previous</span>
+								  </a>
+								  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+								    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								    <span class="sr-only">Next</span>
+								  </a>
+								  
+							</div>	
+							
+							<!--轮播-->
+					</div>
+				</div>
+			<!--首页-->
+			
+			<!--查询学生信息-->
+				<div id="search_student" class="right_content">
+		  	<div class="set_in">
+		  	<div class="search_score">
+		  		<span class="glyphicon glyphicon-home" style="color: indianred;font-size: 18px;">行政班:</span>&nbsp;&nbsp;
+				<input type="text" placeholder="请输入行政班级"   style="height: 32px;width: 248px;" id="search_student_class"/>
+				&nbsp;&nbsp;&nbsp;
+      		
+      		<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">学号:</span>&nbsp;&nbsp;
+						<input type="text" placeholder="请输入学号"   style="height: 32px;width: 100px;" id="search_student_ID"/>
+						&nbsp;&nbsp;&nbsp;
+						
+						<span class="glyphicon glyphicon-stats" style="color: indianred;font-size: 18px;">姓名:</span>
+						&nbsp;&nbsp;
+						<input type="text" placeholder="请输入姓名"   style="height: 32px;width: 100px;" id="search_student_name"/>
+						
+					&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<input type="button" value="查询" class="btn btn-primary" style="margin-top: -3px;" id="search_btn"/>
+					
+      		</div>
+      		
+      		<!--新增学生-->
+      		<div class="search_score" style="margin-top: 24px;">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#add_student">新增学生</button>
+							<button class="btn btn-primary">导入学生名单</button>
+      		</div>
+      		<!--新增学生-->
+      		
+      		
+      		
+      	<div class="search_score_detail">
+      		<div class="table">
+      			<table class="table table-hover table-responsive" >
+							<thead>
+								<tr class="info">
+									<th>学号</th>
+									<th>姓名</th>
+									<th>性别</th>
+									<th>专业</th>
+									<th>行政班级</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+					<tbody id="search_content">
+
+						
+							<tr class="active">
+								<td colspan="6">暂没有相关数据</td>
+							</tr>
+						
+					</tbody>
+					</table>
+      		</div>
+      	</div>
+      	</div>
+		  </div>
+			
+			<!--查询学生信息-->
+				<!--模态框之新增学生-->
+				<div class="modal fade" id="add_student" tabindex="-1" role="dialog"  aria-labelledby="add_student_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="add_student_title">新增学生信息</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<span style="color: indianred;font-size: 18px;">学号:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入学号"   style="height: 32px;width: 240px;" id="add_student_ID"/><br>
+								<span style="color: indianred;font-size: 18px;">姓名:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入姓名"   style="height: 32px;width: 240px;" id="add_student_NAME"/><br>
+								<span style="color: indianred;font-size: 18px;">性别:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入性别"   style="height: 32px;width: 240px;" id="add_student_SEX"/><br>
+								<span style="color: indianred;font-size: 18px;">专业:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入专业"   style="height: 32px;width: 240px;" id="add_student_WORK"/><br>
+								<span style="color: indianred;font-size: 18px;">班级:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入行政班级"   style="height: 32px;width: 240px;" id="add_student_CLASS"/>
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_add_student">添加
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之新增学生-->
+
+			<!--编辑学生信息-->
+				<div class="right_content" id="set_student">
+    			<div class="admin_content">
+    				<div class="panel panel-primary">
+    					<div class="panel-heading">
+        				<h3 class="panel-title">编辑学生信息</h3>
+    					</div>
+    					<!--具体信息-->
+    					<div class="panel-body">
+        				<div class="table">
+
+							<div  style="text-align:right;width: 60%;" id="save_edit_student">
+								<div>
+									<span style="color:#333;font-size: 16px;"><b>旧学号:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入旧学号"  disabled="disabled" style="height: 32px;width: 240px;" id="update_student_OID"/>
+								</div>
+
+								<div style="margin-top: 10px;">
+									<span style="color: #333;font-size: 16px;"><b>新学号:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入新学号"   style="height: 32px;width: 240px;" id="update_student_NID"/>
+								</div>
+
+								<div style="margin-top: 10px;">
+									<span style="color: #333;font-size: 16px;"><b>姓名:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入姓名"   style="height: 32px;width: 240px;" id="update_student_NAME"/>
+								</div>
+
+								<div style="margin-top: 10px;">
+									<span style="color: #333;font-size: 18px;"><b>性别:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入性别"   style="height: 32px;width: 240px;" id="update_student_SEX"/>
+								</div>
+
+								<div style="margin-top: 10px;">
+									<span style="color: #333;font-size: 18px;"><b>专业:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入专业"   style="height: 32px;width: 240px;" id="update_student_WORK"/>
+								</div>
+
+								<div style="margin-top: 10px;">
+									<span style="color: #333;font-size: 18px;"><b>行政班:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入行政班级"   style="height: 32px;width: 240px;" id="update_student_CLASS"/>
+								</div>
+
+							</div>
+
+							<div style="text-align:right;width: 54%;margin-top: 10px;">
+								<button class="btn btn-primary" id="save_update_student">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-primary" id="update_student_exit">退出</button>
+							</div>
+				      	</div>
+    					</div>
+    					
+						</div>
+    			</div>
+    			
+    			
+    			<div class="admin_content">
+    				<div class="panel panel-primary">
+    					<div class="panel-heading">
+        				<h3 class="panel-title">教学班记录</h3>
+    					</div>
+    					<!--具体信息-->
+    					<div class="panel-body">
+        				<div class="table">
+				      			<table class="table table-hover table-responsive" >
+											<thead>
+												<tr class="info">
+													<th>学期</th>
+													<th>教学班级</th>
+													<th>老师</th>
+												</tr>
+											</thead>
+									<tbody>
+											
+											<tr>
+												<td>2016年体测</td>
+												<td>大三大四体测</td>
+												<td>王五</td>
+											</tr>
+
+											<tr class="active">
+												<td colspan="3">...</td>
+											</tr>
+										
+									</tbody>
+									</table>				      			
+				      	</div>
+    					</div>
+    					
+						</div>
+    			</div>
+    			
+    		</div>
+			<!--编辑学生信息-->
+			
+			<!--查询教工信息-->
+				<div id="search_teacher" class="right_content">
+		  	<div class="set_in">
+		  	<div class="search_score">
+      		
+      		<!--<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">职工号</span>&nbsp;&nbsp;-->
+						<!--<input type="text" placeholder="请输入职工号"   style="height: 32px;width: 148px;" id="search_teacher_id"/>-->
+						<!--&nbsp;&nbsp;&nbsp;-->
+						
+						<span class="glyphicon glyphicon-stats" style="color: indianred;font-size: 18px;">姓名</span>
+						&nbsp;&nbsp;
+						<input type="text" placeholder="请输入姓名"   style="height: 32px;width: 100px;" id="search_teacher_name"/>
+						
+					&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<input type="button" value="查询" class="btn btn-primary" style="margin-top: -3px;" id="search_teacher_btn"/>&nbsp;&nbsp;&nbsp;
+					<input type="button" value="显示所有教工信息" class="btn btn-primary" style="margin-top: -3px;" id="search_allteacher_btn"/>
+      		</div>
+      		
+      		<!--新增教工-->
+      		<div class="search_score" style="margin-top: 24px;">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#add_teacher">新增教工</button>
+							<button class="btn btn-primary">导入教工名单</button>
+      		</div>
+      		<!--新增教工-->
+      		
+      		
+      		
+      	<div class="search_score_detail">
+      		<div class="table">
+      			<table class="table table-hover table-responsive" >
+							<thead>
+								<tr class="info">
+									<th>职工号</th>
+									<th>姓名</th>
+									<th>性别</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+					<tbody id="search_teacher_content">
+
+						
+							<tr class="active">
+								<td colspan="4">暂没有相关数据</td>
+							</tr>
+						
+					</tbody>
+					</table>
+      		</div>
+      	</div>
+      	</div>
+		  </div>			
+			
+			<!--查询教工信息-->
+
+
+				<!--模态框之新增教工-->
+				<div class="modal fade" id="add_teacher" tabindex="-1" role="dialog"  aria-labelledby="add_teacher_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="add_teacher_title">新增教工信息</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<span style="color: indianred;font-size: 18px;">工号:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入职工号"   style="height: 32px;width: 240px;" id="add_teacher_ID"/><br>
+								<span style="color: indianred;font-size: 18px;">姓名:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入姓名"   style="height: 32px;width: 240px;" id="add_teacher_NAME"/><br>
+								<span style="color: indianred;font-size: 18px;">性别:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入性别"   style="height: 32px;width: 240px;" id="add_teacher_SEX"/>
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_add_teacher">添加
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之新增教工-->
+
+
+			
+			<!--编辑教工信息-->
+				<div class="right_content" id="set_teacher">
+    			<div class="admin_content">
+    				<div class="panel panel-primary">
+    					<div class="panel-heading">
+        				<h3 class="panel-title">编辑教工信息</h3>
+    					</div>
+    					<!--具体信息-->
+    					<div class="panel-body">
+        				<div class="table">
+							<div  style="text-align:right;width: 60%;" id="save_edit_teacher">
+									<div>
+										<span style="color:#333;font-size: 16px;"><b>旧职工号:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入旧职工号"  disabled="disabled" style="height: 32px;width: 240px;" id="update_teacher_OID"/>
+									</div>
+
+									<div style="margin-top: 10px;">
+										<span style="color: #333;font-size: 16px;"><b>新职工号:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入新职工号"   style="height: 32px;width: 240px;" id="update_teacher_NID"/>
+									</div>
+
+									<div style="margin-top: 10px;">
+										<span style="color: #333;font-size: 16px;"><b>姓名:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入姓名"   style="height: 32px;width: 240px;" id="update_teacher_NAME"/>
+									</div>
+
+									<div style="margin-top: 10px;">
+										<span style="color: #333;font-size: 18px;"><b>性别:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入性别"   style="height: 32px;width: 240px;" id="update_teacher_SEX"/>
+									</div>
+							</div>
+
+							<div style="text-align:right;width: 54%;margin-top: 10px;">
+								<button class="btn btn-primary" id="save_update_teacher">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-primary" id="update_teacher_exit">退出</button>
+							</div>
+							</div>
+    					</div>
+    					
+						</div>
+    			</div>
+    		</div>			
+			
+			<!--编辑教工信息-->
+			
+			
+			<!--修改密码-->
+			
+			<div id="admin_cpassword" class="right_content">				
+				<div class="admin_content container">
+					<div class="row">
+						<!--标题-->
+						<div class="col-lg-12 admin_title">
+							<span class="glyphicon glyphicon-lock">修改密码</span>
+						</div>
+						
+					</div>
+					<HR  width="100%" />
+					<div class="row">
+					<div class="col-lg-4 col-lg-offset-4 css_password" >
+						<!--旧密码文本框-->
+						<div class="input-group input-group-lg">
+            	<span class="input-group-addon o">旧密码:</span>
+            	<input type="password" class="form-control" placeholder="请输入旧密码" id="old_password">
+            	<span class="input-group-addon glyphicon glyphicon-eye-close t"></span>
+        		</div>
+        		<br />
+        		<!--新密码文本框-->
+						<div class="input-group input-group-lg">
+            	<span class="input-group-addon o">新密码:</span>
+            	<input type="password" class="form-control" placeholder="请输入新密码" id="new_password">
+            	<span class="input-group-addon glyphicon glyphicon-eye-close t"></span>
+        		</div>
+        		<br />
+        		
+        		<!--确认密码文本框-->
+						<div class="input-group input-group-lg">
+            	<span class="input-group-addon  o">确认密码:</span>
+            	<input type="password" class="form-control" placeholder="请再次输入新密码">
+            	<span class="input-group-addon glyphicon glyphicon-eye-close t"></span>
+        		</div>
+        		<br />
+					<!--按钮-->							
+					<div class="col-lg-offset-2">
+						<!--修改密码按钮-->
+						<input type="button" value="确认" class="btn btn-primary p" id="OK_Password"/>&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="reset" value="取消" class="btn btn-primary p" />
+					</div>        		
+						
+				</div>
+			</div>
+	
+				</div>
+		  </div>
+		  <!--修改密码-->
+		  
+		  <!--教学班查询-->
+		  <div id="tclass_search" class="right_content">
+		  	<div class="set_in">
+		  	<div class="search_score">
+		  		&nbsp;&nbsp;&nbsp;
+      		<!--下拉选择框-->
+      		<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">学年</span>&nbsp;&nbsp;
+      			<select class="selectpicker show-tick" data-style="btn-info" data-width="248px">
+  						<optgroup label="2017~2018年">
+  						<option >2017年体测成绩</option>
+  						<option >2017~2018第一学期体育成绩</option>
+  						<option >2017~2018第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2016~2017年">
+  						<option >2016年体测成绩</option>
+  						<option >2016~2017第一学期体育成绩</option>
+  						<option >2016~2017第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2015~2016年">
+  						<option >2015年体测成绩</option>
+   						<option >2015~2016第一学期体育成绩</option>
+  						<option >2015~2016第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2014~2015年">
+  						<option >2014年体测成绩</option>
+  						<option >2014~2015第一学期体育成绩</option>
+  						<option >2014~2015第二学期体育成绩</option>
+  						</optgroup>
+						</select>
+						&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<!--<input type="button" value="查询" class="btn btn-primary" style="margin-right: 64px;"/>-->
+					
+						<span class="glyphicon glyphicon-user" style="color: indianred;font-size: 18px;">教师</span>&nbsp;&nbsp;
+      					<input type="text" placeholder="请输入教工姓名" id="teacher_name"/>
+						&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<input type="button" value="查询" class="btn btn-primary" id="teacher_class_search_btn"/>
+					
+					
+      		</div>
+      	<div class="search_score_detail">
+      		<div class="table">
+      			<table class="table table-hover table-responsive" >
+							<thead>
+								<tr class="info">
+									<th>班级名称</th>
+									<th>任课教师</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+					<tbody id="show_teachclass">
+							<tr class="active">
+								<td colspan="3">暂没有相关数据</td>
+							</tr>
+						
+					</tbody>
+					</table>
+      		</div>
+      	</div>
+      	</div>
+		  </div>		  
+		  <!--教学班查询-->
+		  
+		  
+		  <!--学生管理-->
+				<div id="tclass_student" class="right_content">
+		  	<div class="set_in">
+		  	<div class="search_score">
+      		<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">教学班</span>&nbsp;&nbsp;
+						<input type="text" placeholder="请输入教学班"   style="height: 32px;width: 240px;" id="teach_class_student"/>
+						&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<input type="button" value="查询教学班学生" class="btn btn-primary" style="margin-top: -3px;" id="search_teach_class_btn"/>
+					
+      		</div>
+      		
+      		<!--新增学生-->
+      		<div class="search_score" style="margin-top: 24px;">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#add_tclass_student">新增学生</button>
+							<button class="btn btn-primary">导入学生</button>
+      		</div>
+      		<!--新增学生-->
+      		
+      		
+      		
+      	<div class="search_score_detail">
+      		<div class="table">
+      			<table class="table table-hover table-responsive" >
+							<thead>
+								<tr class="info">
+									<th>学号</th>
+									<th>姓名</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+					<tbody id="show_teach_class_student">
+
+						
+							<tr class="active">
+								<td colspan="3">暂没有相关数据</td>
+							</tr>
+						
+					</tbody>
+					</table>
+      		</div>
+      	</div>
+      	</div>
+		  </div>			  
+		  <!--学生管理-->
+				<!--模态框之教学班新增学生-->
+				<div class="modal fade" id="add_tclass_student" tabindex="-1" role="dialog"  aria-labelledby="add_tclass_student_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="add_tclass_student_title">新增学生信息</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<span style="color: indianred;font-size: 18px;">教学班号:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入教学班号"   style="height: 32px;width: 240px;" id="add_tclass_student_ClassID"/><br>
+								<span style="color: indianred;font-size: 18px;">学生学号:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入学生学号"   style="height: 32px;width: 240px;" id="add_tclass_student_ID"/><br>
+
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_add_tclass_student">添加
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之教学班新增学生-->
+
+		  
+		  <!--教学班成绩录入-->
+				<div id="tclass_addscore" class="right_content">
+		  	<div class="set_in">
+		  	<div class="search_score">
+      		
+      		<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">教学班</span>&nbsp;&nbsp;
+						<input type="text" placeholder="请输入教学班"   style="height: 32px;width: 240px;"/>
+						&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<input type="button" value="查询教学班学生" class="btn btn-primary" style="margin-top: -3px;"/>
+					
+      		</div>
+      		     		
+      	<div class="search_score_detail">
+      		<div class="table">
+      			<table class="table table-hover table-responsive" >
+							<thead>
+								<tr class="info">
+									<th>学号</th>
+									<th>姓名</th>
+									<th>平时成绩</th>
+									<th>...</th>
+									<th>总分</th>
+								</tr>
+							</thead>
+					<tbody>
+							<tr class="active">
+								<td colspan="5">暂没有相关数据</td>
+							</tr>
+						
+					</tbody>
+					</table>
+      		</div>
+      	</div>
+      	</div>
+		  </div>			  
+		  <!--教学班成绩录入-->
+		  
+		  <!--新增教学班-->
+				<div class="right_content" id="tclass_add">
+    			<div class="admin_content">
+    				<div class="panel panel-primary">
+    					<div class="panel-heading">
+        				<h3 class="panel-title">新增教学班</h3>
+    					</div>
+    					<!--具体信息-->
+    					<div class="panel-body">
+        				<div class="table">
+
+							<div  style="text-align:right;width: 60%;" id="save_edit_tclass">
+								<div style="margin-top: 10px;">
+										<input type="text"  id="add_tclass_ID" style="display: none;"/>
+										<span style="color: #333;font-size: 18px;"><b>班级名:</b></span>
+										&nbsp;&nbsp;
+										<input type="text" placeholder="请输入班级名"   style="height: 32px;width: 320px;" id="add_tclass"/>
+									</div>
+
+								<!--年份-->
+								<div style="margin-top: 10px;">
+									<span style="color: #333;font-size: 18px;"><b>年份:</b></span>
+									&nbsp;&nbsp;
+									<input type="text" placeholder="请输入年份"   style="height: 32px;width: 320px;" id="add_tclass_year"/>
+								</div>
+
+								<!--任课教师-->
+								<div style="margin-top: 10px;">
+
+									<span style="color: #333;font-size: 18px;"><b>任课教师:</b></span>
+									&nbsp;&nbsp;
+									<select class="selectpicker show-tick" style="width: 320px;" id="select_teacher">
+
+									</select>
+								</div>
+
+								<!--课程类型-->
+								<div style="margin-top: 10px;">
+
+									<span style="color: #333;font-size: 18px;"><b>课程类型:</b></span>
+									&nbsp;&nbsp;
+									<select class="selectpicker show-tick" style="width: 320px;" id="select_tclass">
+
+									</select>
+								</div>
+
+								<!--考试标准-->
+								<div style="margin-top: 10px;">
+									<span style="color: #333;font-size: 18px;"><b>考试标准:</b></span>
+									&nbsp;&nbsp;
+									<select class="selectpicker show-tick" style="width: 320px;" id="grade">
+										<option >大一上</option>
+										<option >大一下</option>
+										<option >大二上</option>
+										<option >大二下</option>
+										<option >大三上</option>
+										<option >大三下</option>
+										<option >大四上</option>
+										<option >大四下</option>
+									</select>
+								</div>
+							</div>
+							<div style="text-align:right;width: 54%;margin-top: 24px;">
+								<button class="btn btn-primary" id="save_add_tclass">新增教学班</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-primary" id="save_add_tclass_update" disabled="disabled">更新教学班</button>
+							</div>
+
+											
+
+				      	</div>
+    					</div>
+    					
+						</div>
+
+    			</div>
+    		</div>					  	
+		  <!--新增教学班-->
+		  
+		  
+		  <!--学生成绩查询-->
+		  <div id="score" class="right_content">
+		  	<div class="set_in">
+		  	<div class="search_score">
+		  		<span class="glyphicon glyphicon-user" style="color: indianred;font-size: 18px;">学号:</span>
+      		<input type="text" class="" placeholder="请输入学号"  style="width: 180px;" id="search_score_id"/>
+      		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      		<!--下拉选择框-->
+      		<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">查询种类:</span>&nbsp;&nbsp;
+      			<select class="selectpicker show-tick" data-style="btn-info" data-width="248px">
+  						<optgroup label="2017~2018年">
+  						<option >2017年体测成绩</option>
+  						<option >2017~2018第一学期体育成绩</option>
+  						<option >2017~2018第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2016~2017年">
+  						<option >2016年体测成绩</option>
+  						<option >2016~2017第一学期体育成绩</option>
+  						<option >2016~2017第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2015~2016年">
+  						<option >2015年体测成绩</option>
+   						<option >2015~2016第一学期体育成绩</option>
+  						<option >2015~2016第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2014~2015年">
+  						<option >2014年体测成绩</option>
+  						<option >2014~2015第一学期体育成绩</option>
+  						<option >2014~2015第二学期体育成绩</option>
+  						</optgroup>
+						</select>
+						&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<input type="button" value="查询" class="btn btn-primary" id="student_search_score"/>
+					
+      		</div>
+      	<div class="search_score_detail">
+      		<div class="table">
+      			<table class="table table-hover table-responsive" >
+							<thead>
+								<tr class="info">
+									<th>项目</th>
+									<th>项目成绩</th>
+									<th>得分</th>
+								</tr>
+							</thead>
+					<tbody id="score_detail">
+						
+							<tr class="active">
+								<td colspan="3">暂没有相关数据</td>
+							</tr>
+						
+					</tbody>
+					</table>
+      		</div>
+      	</div>
+      	</div>
+		  </div>
+		  <!--学生成绩查询-->
+ 	
+			<!--行政班成绩查询-->
+			<div id="polity_score" class="right_content">
+		  	<div class="set_in">
+		  	<div class="search_score">
+		  		<span class="glyphicon glyphicon-home" style="color: indianred;font-size: 18px;">行政班:</span>&nbsp;&nbsp;
+      			<input type="text" id="polity_class" placeholder="请输入行政班" width="248px">
+						&nbsp;&nbsp;&nbsp;
+      		<!--下拉选择框-->
+      		<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">查询种类:</span>&nbsp;&nbsp;
+      			<select class="selectpicker show-tick" data-style="btn-info" data-width="248px">
+  						<optgroup label="2017~2018年">
+  						<option >2017年体测成绩</option>
+  						<option >2017~2018第一学期体育成绩</option>
+  						<option >2017~2018第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2016~2017年">
+  						<option >2016年体测成绩</option>
+  						<option >2016~2017第一学期体育成绩</option>
+  						<option >2016~2017第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2015~2016年">
+  						<option >2015年体测成绩</option>
+   						<option >2015~2016第一学期体育成绩</option>
+  						<option >2015~2016第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2014~2015年">
+  						<option >2014年体测成绩</option>
+  						<option >2014~2015第一学期体育成绩</option>
+  						<option >2014~2015第二学期体育成绩</option>
+  						</optgroup>
+						</select>
+						&nbsp;&nbsp;&nbsp;
+						
+						<!--分段-->
+						<span class="glyphicon glyphicon-stats" style="color: indianred;font-size: 18px;">分段</span>
+						&nbsp;&nbsp;
+						<select class="selectpicker" data-width="64px" id="score_limit">
+							<option></option>
+							<option><</option>
+							<option>></option>
+							<option>=</option>
+						</select>
+						&nbsp;&nbsp;
+						<input type="text" placeholder="请输入分数"   style="width: 100px;" id="score_range"/>
+						
+					&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<input type="button" value="查询" class="btn btn-primary" style="margin-top: -3px;" id="polity_search_btn"/>
+					
+      		</div>
+      	<div class="search_score_detail">
+      		<div class="table">
+      			<table class="table table-hover table-responsive" >
+							<thead>
+								<tr class="info">
+									<th>学号</th>
+									<th>姓名</th>
+									<th>总分</th>
+									<th>等级</th>
+								</tr>
+							</thead>
+					<tbody id="polity_score_table">
+						
+							<tr class="active">
+								<td colspan="4">暂没有相关数据</td>
+							</tr>
+						
+					</tbody>
+					</table>
+      		</div>
+      	</div>
+      	</div>
+		  </div>
+			<!--行政班成绩查询-->
+			
+			<!--教学班成绩查询-->
+			<div id="education_score" class="right_content">
+		  	<div class="set_in">
+		  	<div class="search_score">
+		  		<span class="glyphicon glyphicon-home" style="color: indianred;font-size: 18px;">教学班:</span>&nbsp;&nbsp;
+				<input type="text" id="teach_class" placeholder="请输入教学班" width="248px">
+						&nbsp;&nbsp;&nbsp;
+      		<!--下拉选择框-->
+      		<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">查询种类:</span>&nbsp;&nbsp;
+      			<select class="selectpicker show-tick" data-style="btn-info" data-width="248px">
+  						<optgroup label="2017~2018年">
+  						<option >2017年体测成绩</option>
+  						<option >2017~2018第一学期体育成绩</option>
+  						<option >2017~2018第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2016~2017年">
+  						<option >2016年体测成绩</option>
+  						<option >2016~2017第一学期体育成绩</option>
+  						<option >2016~2017第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2015~2016年">
+  						<option >2015年体测成绩</option>
+   						<option >2015~2016第一学期体育成绩</option>
+  						<option >2015~2016第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2014~2015年">
+  						<option >2014年体测成绩</option>
+  						<option >2014~2015第一学期体育成绩</option>
+  						<option >2014~2015第二学期体育成绩</option>
+  						</optgroup>
+						</select>
+						&nbsp;&nbsp;&nbsp;
+						
+						<!--分段-->
+						<span class="glyphicon glyphicon-stats" style="color: indianred;font-size: 18px;">分段</span>
+						&nbsp;&nbsp;
+						<select class="selectpicker" data-width="64px" id="teach_class_select">
+							<option></option>
+							<option><</option>
+							<option>></option>
+							<option>=</option>
+						</select>
+						&nbsp;&nbsp;
+						<input type="text" placeholder="请输入分数"   style="width: 100px;" id="teach_class_score"/>
+						
+					&nbsp;&nbsp;&nbsp;
+					<!--按钮-->
+					<input type="button" value="查询" class="btn btn-primary" style="margin-top: -3px;" id="teachclass_search_btn"/>
+					
+      		</div>
+      	<div class="search_score_detail">
+      		<div class="table">
+      			<table class="table table-hover table-responsive" >
+							<thead>
+								<tr class="info">
+									<th>学号</th>
+									<th>姓名</th>
+									<th>总分</th>
+									<th>等级</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+					<tbody id="teacher_score_detail">
+
+							<!--<td><input type="button" value="查看详情" class="btn btn-primary" data-toggle="modal" data-target="#v_detail"/></td>-->
+
+							<tr class="active">
+								<td colspan="5">暂没有相关数据</td>
+							</tr>
+						
+					</tbody>
+					</table>
+      		</div>
+      	</div>
+      	</div>
+      	
+      	<!--模态框之详细信息-->
+      		<div class="modal fade" id="v_detail" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel"  aria-hidden="true" style="margin-top: 10%;">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+											<!--关闭按钮-->
+											<button type="button" class="close" data-dismiss="modal" 
+											aria-hidden="true">×
+											</button>
+											
+										<h4 class="modal-title" id="myModalLabel">具体信息</h4>
+		
+									</div>
+									
+									<!--添加的详细信息-->
+									<div class="modal-body">
+											<div class="table">
+	      								<table class="table table-hover table-responsive" >
+													<thead>
+														<tr class="info">
+															<th>项目</th>
+															<th>项目成绩</th>
+														</tr>
+													</thead>
+													<tbody id="show_detail_modal">
+	
+								
+													<tr class="active">
+													<td colspan="2">暂没有相关数据</td>
+													</tr>
+							
+													</tbody>
+												</table>
+	      							</div>
+										</div>
+									<!--添加的详细信息-->
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" 
+											data-dismiss="modal">关闭
+										</button>
+									</div>
+								</div>
+							</div>					
+						
+      		</div>
+      	<!--模态框之详细信息-->
+		  
+			
+			</div>			
+			<!--教学班成绩查询-->
+		
+    	<!--导出体侧成绩-->
+    	<div id="export" class="right_content">
+    		<div class="admin_content container">
+					<div class="row">
+						<!--标题-->
+						<div class="col-lg-12 admin_title">
+							<span class="glyphicon glyphicon-lock">导出成绩</span>
+						</div>
+						
+					</div>
+					<HR  width="100%" />
+					<div class="row">
+					<div class="col-lg-7 col-lg-offset-2 css_password">						
+						
+							
+							
+						<!--教学班导出成绩-->
+						<div class="">
+							<!--教学班-->
+            	<span class="glyphicon glyphicon-home" style="color: indianred;font-size: 18px;">教学班:</span>&nbsp;&nbsp;
+      			<select class="selectpicker show-tick" data-live-search="true" data-width="248px">
+
+						</select>
+						&nbsp;&nbsp;&nbsp;
+						
+						<!--学年-->
+							<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">学年:</span>&nbsp;&nbsp;
+      			<select class="selectpicker show-tick" data-style="btn-info" data-width="248px">
+  						<optgroup label="2017~2018年">
+  						<option >2017年体测成绩</option>
+  						<option >2017~2018第一学期体育成绩</option>
+  						<option >2017~2018第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2016~2017年">
+  						<option >2016年体测成绩</option>
+  						<option >2016~2017第一学期体育成绩</option>
+  						<option >2016~2017第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2015~2016年">
+  						<option >2015年体测成绩</option>
+   						<option >2015~2016第一学期体育成绩</option>
+  						<option >2015~2016第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2014~2015年">
+  						<option >2014年体测成绩</option>
+  						<option >2014~2015第一学期体育成绩</option>
+  						<option >2014~2015第二学期体育成绩</option>
+  						</optgroup>
+						</select>
+						&nbsp;&nbsp;&nbsp;
+						
+						<!--按钮-->
+						<input type="button" value="导出成绩" class="btn btn-primary" data-loading-text="正在导出..." id="education"/>	
+        		</div>
+        		<br />
+        		
+        			
+        		<!--行政班导出成绩-->
+						<div class="">
+								<!--行政班-->
+            	<span class="glyphicon glyphicon-home" style="color: indianred;font-size: 18px;">行政班:</span>&nbsp;&nbsp;
+      			<select class="selectpicker show-tick" data-live-search="true" data-width="248px">
+
+						</select>
+						&nbsp;&nbsp;&nbsp;   
+						
+						<!--学年-->
+							<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">学年:</span>&nbsp;&nbsp;
+      			<select class="selectpicker show-tick" data-style="btn-info" data-width="248px">
+  						<optgroup label="2017~2018年">
+  						<option >2017年体测成绩</option>
+  						<option >2017~2018第一学期体育成绩</option>
+  						<option >2017~2018第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2016~2017年">
+  						<option >2016年体测成绩</option>
+  						<option >2016~2017第一学期体育成绩</option>
+  						<option >2016~2017第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2015~2016年">
+  						<option >2015年体测成绩</option>
+   						<option >2015~2016第一学期体育成绩</option>
+  						<option >2015~2016第二学期体育成绩</option>
+  						</optgroup>
+  						
+  						<optgroup label="2014~2015年">
+  						<option >2014年体测成绩</option>
+  						<option >2014~2015第一学期体育成绩</option>
+  						<option >2014~2015第二学期体育成绩</option>
+  						</optgroup>
+						</select>
+						&nbsp;&nbsp;&nbsp;
+						
+						<!--按钮-->
+						<input type="button" value="导出成绩" class="btn btn-primary" data-loading-text="正在导出..." id="polity"/>
+        		</div>
+        		<br />
+        		
+        		
+						</div>
+					</div>
+	
+				</div>
+    	</div>
+    	<!--导出体侧成绩-->
+
+				<!--设置模板类型-->
+				<div class="right_content" id="add_ModelClass">
+					<div class="admin_content">
+						<!--查询框-->
+						<div class="search_score" style="margin-bottom: 24px;">
+							<!--下拉选择框-->
+							<span class="glyphicon glyphicon-search" style="color: indianred;font-size: 18px;">模板类型:</span>&nbsp;&nbsp;
+							<select class="selectpicker show-tick" data-style="btn-info" data-width="248px" id="select_ModelClass">
+
+							</select>
+							&nbsp;&nbsp;&nbsp;
+							<!--按钮-->
+							<input type="button" value="查看详情" class="btn btn-primary" id="search_ModelClass"/>
+							&nbsp;&nbsp;&nbsp;
+							<input type="button" value="新增模板" class="btn btn-primary" id="Insert_ModelClass" data-toggle="modal" data-target="#add_NewModelClass"/>
+						</div>
+						<!--模板类型-->
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">模板类型</h3>
+							</div>
+							<!--具体模板类型-->
+							<div class="panel-body">
+								<div class="table">
+									<table class="table table-hover table-responsive" >
+										<thead>
+										<tr class="info">
+											<th>模板类型</th>
+											<th>操作</th>
+										</tr>
+										</thead>
+										<tbody id="ModelClass_subject">
+
+										<tr class="active">
+											<td colspan="2">暂没有相关数据</td>
+										</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+						<!--模板科目-->
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">模板科目</h3>
+							</div>
+							<!--具体模板科目-->
+							<div class="panel-body">
+								<input type="button" value="增加模板科目" class="btn btn-primary" data-toggle="modal" data-target="#add_NewModelSubject" style="display: none;" id="SHOW_BTN"/>
+								<div class="table">
+									<table class="table table-hover table-responsive" >
+										<thead>
+										<tr class="info">
+											<th>模板科目</th>
+											<th>操作</th>
+										</tr>
+										</thead>
+										<tbody id="ModelClass_subject_detail">
+
+										<tr class="active">
+											<td colspan="2">暂没有相关数据</td>
+										</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<!--<input type="button" value="新增模板类型" class="btn btn-primary" data-toggle="modal" data-target="#add_NewModelClass"/>-->
+				</div>
+				<!--设置模板类型-->
+				<!--模态框之增加考试科目-->
+				<div class="modal fade" id="add_NewModelSubject" tabindex="-1" role="dialog"  aria-labelledby="add_NewModelSubject_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="add_NewModelSubject_title">增加考试科目</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<span style="color: indianred;font-size: 18px;">考试科目名称:</span>
+								&nbsp;&nbsp;
+								<select class="selectpicker show-tick" data-style="btn-info" data-width="248px" id="select_ModelSuject">
+
+								</select>
+
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="add_NewExamSubject_BTN">添加
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之增加考试科目-->
+				<!--模态框之新增模板类型-->
+				<div class="modal fade" id="add_NewModelClass" tabindex="-1" role="dialog"  aria-labelledby="add_NewModelClass_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="add_NewModelClass_title">新增模板类型</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<span style="color: indianred;font-size: 18px;">模板的名称:</span>
+								&nbsp;&nbsp;
+								<input  type="text" id="ModelClass_Name" placeholder="请输入模板的名称"   style="height: 32px;width: 240px;"/>
+
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="add_NewModelClass_BTN">添加
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之新增模板类型-->
+				<!--模态框之更新模板类型-->
+				<div class="modal fade" id="update_ModelClass" tabindex="-1" role="dialog"  aria-labelledby="update_ModelClass_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="update_ModelClass_title">更新模板类型</h4>
+
+							</div>
+
+							<!--更新的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<input type="text" id="update_ModelClass_ID" style="display: none;"/>
+								<span style="color: indianred;font-size: 18px;">新的模板类型名称:</span>
+								&nbsp;&nbsp;
+								<input  type="text" id="update_ModelClass_Name" placeholder="请输入新的模板类型名称"   style="height: 32px;width: 240px;"/>
+
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="update_NewModelClass_BTN">更新
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之更新模板类型-->
+    	<!--设置模板科目-->
+    		<div class="right_content" id="add">
+    			<div class="admin_content">
+    				<div class="panel panel-primary">
+    					<div class="panel-heading">
+        				<h3 class="panel-title">考试科目</h3>
+    					</div>
+    					<!--具体考试科目-->
+    					<div class="panel-body">
+        				<div id="table" class="table">
+				      			<table class="table table-hover table-responsive" >
+											<thead>
+												<tr class="info">
+													<th>科目名称</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+									<tbody id="exam_subject_detail">
+
+											<tr class="active">
+												<td colspan="2">暂没有相关数据</td>
+											</tr>
+										
+									</tbody>
+									</table>
+				      	</div>
+    					</div>
+    					
+						</div>
+    			</div>
+
+
+    			<div class="container">
+    			<div class="row">
+    				<!--按钮-->
+    				<div class="col-lg-4 col-lg-offset-5 ">
+    					<input type="button" value="新增考试科目" class="btn btn-primary" data-toggle="modal" data-target="#add_NewExamSubject"/>
+    				</div>
+    			</div>
+    			</div>
+    		</div>
+    	<!--设置模板科目-->
+
+				<!--模态框之新增考试科目-->
+				<div class="modal fade" id="add_NewExamSubject" tabindex="-1" role="dialog"  aria-labelledby="add_NewExamSubject_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="add_NewExamSubject_title">新增考试科目</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<span style="color: indianred;font-size: 18px;">考试科目名称:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入考试科目名称"   style="height: 32px;width: 240px;" id="add_NewExamSubject_Name"/>
+
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_add_NewExamSubject">添加
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之新增考试科目-->
+
+
+				<!--模态框之更新考试科目-->
+				<div class="modal fade" id="update_NewExamSubject" tabindex="-1" role="dialog"  aria-labelledby="update_NewExamSubject_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="update_NewExamSubject_title">更新考试科目</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<input type="text" id="update_NewExamSubject_Id" style="display: none;"/>
+								<span style="color: indianred;font-size: 18px;">考试科目名称:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入考试科目名称"   style="height: 32px;width: 240px;" id="update_NewExamSubject_Name"/>
+
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_update_NewExamSubject">更新
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之更新考试科目-->
+
+    	<!--设置模板标准-->
+				<div class="right_content" id="set">
+    			<div class="admin_content">
+					<input type="text" id="ES_ID" style="display: none;"/>
+    				<div class="panel panel-primary">
+    					<div class="panel-heading">
+        				<h3 class="panel-title">设置考试标准</h3>
+    					</div>
+    					<!--具体考试科目-->
+    					<div class="panel-body">
+        				<div class="table">
+				      			<table class="table table-hover table-responsive" >
+											<thead>
+												<tr class="info">
+													<th>标准名称</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+									<tbody id="Exam_Standard">
+
+									<tr class="active">
+										<td colspan="2">暂没有相关数据</td>
+									</tr>
+										
+									</tbody>
+									</table>
+				      	</div>
+    					</div>
+    					
+						</div>
+    			</div>
+
+
+    			<div class="container">
+    			<div class="row">
+    				<!--按钮-->
+    				<div class="col-lg-4 col-lg-offset-4 ">
+    					<input type="button" value="新增考试标准" class="btn btn-primary" data-toggle="modal" data-target="#add_NewStandard" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" value="返回" class="btn btn-primary" id="btn_BACK"/>
+    				</div>
+    			</div>
+    			</div>
+    		</div>    		
+    	<!--设置模板标准-->
+
+				<!--模态框之新增考试标准-->
+				<div class="modal fade" id="add_NewStandard" tabindex="-1" role="dialog"  aria-labelledby="add_NewStandard_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="add_NewStandard_title">新增考试标准</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<span style="color: indianred;font-size: 18px;">模板标准名称:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入模板标准名称"   style="height: 32px;width: 240px;" id="add_NewStandard_Name"/><br>
+								<span style="color: indianred;font-size: 18px;">模板标准权重:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入模板标准权重"   style="height: 32px;width: 240px;" id="add_NewStandard_W"/>
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_add_NewStandard">添加
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之新增考试标准-->
+				<!--模态框之更新考试标准-->
+				<div class="modal fade" id="Standard_NewExamSubject" tabindex="-1" role="dialog"  aria-labelledby="Standard_NewExamSubject_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="Standard_NewExamSubject_title">更新考试标准</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<input type="text" id="Standard_NewExamSubject_Id" style="display: none;"/>
+								<span style="color: indianred;font-size: 18px;">考试标准名称:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入考试标准名称"   style="height: 32px;width: 240px;" id="Standard_NewExamSubject_Name"/><br>
+								<span style="color: indianred;font-size: 18px;">考试标准权重:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入考试标准权重"   style="height: 32px;width: 240px;" id="Standard_NewExamSubject_W"/>
+
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_Standard_NewExamSubject">更新
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之更新考试标准-->
+    	<!--设置模板得分范围-->
+    		<div class="right_content" id="set_score">
+    			<div class="admin_content">
+					<input type="text" id="Standard_modelStandardId" style="display: none;"/>
+    				<div class="panel panel-primary">
+    					<div class="panel-heading">
+        				<h3 class="panel-title">编辑考试标准</h3>
+    					</div>
+    					<!--具体考试科目-->
+    					<div class="panel-body">
+        				<div class="table">
+				      			<table class="table table-hover table-responsive" >
+											<thead>
+												<tr class="info">
+													<th>min</th>
+													<th>max</th>
+													<th>分数</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+									<tbody id="Standard_Set_Score">
+
+											<tr class="active">
+												<td colspan="4">暂没有相关数据</td>
+											</tr>
+										
+									</tbody>
+									</table>
+				      	</div>
+    					</div>
+    					
+						</div>
+    			</div>
+
+
+    			<div class="container">
+    			<div class="row">
+    				<!--按钮-->
+    				<div class="col-lg-4 col-lg-offset-4 ">
+    					<input type="button" value="新增得分范围" class="btn btn-primary" data-toggle="modal" data-target="#add_NewStandard_score"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    					<input type="button" value="返回" class="btn btn-primary" id="back_to_standard"/>
+    				</div>
+    			</div>
+    			</div>
+    		</div>
+    	<!--设置模板得分范围-->
+				<!--模态框之新增得分范围-->
+				<div class="modal fade" id="add_NewStandard_score" tabindex="-1" role="dialog"  aria-labelledby="add_NewStandard_score_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="add_NewStandard_score_title">新增得分范围</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<span style="color: indianred;font-size: 18px;">最小:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入最小值"   style="height: 32px;width: 240px;" id="SET_SCORE_MIN"/><br>
+								<span style="color: indianred;font-size: 18px;">最大:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入最大值"   style="height: 32px;width: 240px;" id="SET_SCORE_MAX"/><br>
+								<span style="color: indianred;font-size: 18px;">得分:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入得分"   style="height: 32px;width: 240px;" id="SET_SCORE_SCORE"/>
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_add_NewScore">添加
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之新增得分范围-->
+				<!--模态框之更新得分范围-->
+				<div class="modal fade" id="modal_set_score" tabindex="-1" role="dialog"  aria-labelledby="Standard_NewExamSubject_score_title"  aria-hidden="true" style="margin-top: 10%;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<!--关闭按钮-->
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">×
+								</button>
+
+								<h4 class="modal-title" id="Standard_NewExamSubject_score_title">更新得分范围</h4>
+
+							</div>
+
+							<!--添加的详细信息-->
+							<div class="modal-body" style="text-align: center;">
+								<input type="text" id="limit_score_ID" style="display:none;"/>
+								<span style="color: indianred;font-size: 18px;">最小:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入最小值"   style="height: 32px;width: 240px;" id="SET_SCORE_MIN2"/><br>
+								<span style="color: indianred;font-size: 18px;">最大:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入最大值"   style="height: 32px;width: 240px;" id="SET_SCORE_MAX2"/><br>
+								<span style="color: indianred;font-size: 18px;">得分:</span>
+								&nbsp;&nbsp;
+								<input type="text" placeholder="请输入得分"   style="height: 32px;width: 240px;" id="SET_SCORE_SCORE2"/>
+
+							</div>
+							<!--添加的详细信息-->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary"
+										id="btn_update_SetScore">更新
+								</button>
+								<button type="button" class="btn btn-default"
+										data-dismiss="modal">关闭
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--模态框之更新得分范围-->
+   	</div>
+
+  <script type="text/javascript" src="/resources/js/admin_strong.js"></script>
+  </body>
+</html>

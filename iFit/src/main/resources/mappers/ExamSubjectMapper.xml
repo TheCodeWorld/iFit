@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.ExamSubjectMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.ExamSubject" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="exam_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="SubjectVoMap" type="team.njupt.ifit.vo.SubjectVo">
+    <result property="id" column="id"></result>
+    <result property="examName" column="exam_name"></result>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, exam_name
+  </sql>
+  <select id="selectBySubjectName" resultType="int" parameterType="string" >
+    select 
+    COUNT(1)
+    from exam_subject
+    where exam_name = #{subjectName,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exam_subject
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="string" >
+    insert into exam_subject (exam_name)
+    values (#{subjectName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.ExamSubject" >
+    insert into exam_subject
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="examName != null" >
+        exam_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="examName != null" >
+        #{examName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="team.njupt.ifit.pojo.ExamSubject" >
+    update exam_subject
+    <set >
+      <if test="examName != null" >
+        exam_name = #{examName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="map" >
+    update exam_subject
+    set exam_name = #{newSubjectName,jdbcType=VARCHAR}
+    where id = #{subjectId,jdbcType=INTEGER}
+  </update>
+  <select id="seletAll" resultMap="SubjectVoMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM exam_subject
+  </select>
+  <select id="countSubjectName" parameterType="string" resultType="int">
+    SELECT
+    COUNT(1)
+    FROM exam_subject
+    WHERE exam_name = #{subjectName}
+  </select>
+</mapper>

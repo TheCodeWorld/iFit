@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.TteacherMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.Tteacher" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="t_teacher_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="t_teacher_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="t_teacher_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="TeacherDTOResultMap" type="team.njupt.ifit.pojo.dto.TeacherDTO" >
+      <result column="id" property="id" />
+      <result column="t_teacher_name" property="teacherName" />
+      <result column="t_teacher_id" property="teacherId"/>
+      <result column="t_teacher_sex" property="teacherSex" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,t_teacher_name, t_teacher_id,t_teacher_sex
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="team.njupt.ifit.pojo.dto.TeacherDTO" >
+    insert into t_teacher (t_teacher_name, t_teacher_id,t_teacher_sex)
+    values (#{teacherName,jdbcType=VARCHAR}, #{teacherId,jdbcType=VARCHAR},#{teacherSex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.Tteacher" >
+    insert into t_teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tTeacherName != null" >
+        t_teacher_name,
+      </if>
+      <if test="tTeacherId != null" >
+        t_teacher_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tTeacherName != null" >
+        #{tTeacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="tTeacherId != null" >
+        #{tTeacherId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="team.njupt.ifit.pojo.Tteacher" >
+    update t_teacher
+    <set >
+      <if test="tTeacherName != null" >
+        t_teacher_name = #{tTeacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="tTeacherId != null" >
+        t_teacher_id = #{tTeacherId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByTeacherId" parameterType="map" >
+    update t_teacher
+    set t_teacher_name = #{teacherDTO.teacherName,jdbcType=VARCHAR},
+      t_teacher_id = #{teacherDTO.teacherId,jdbcType=VARCHAR},
+      t_teacher_sex = #{teacherDTO.teacherSex,jdbcType=VARCHAR}
+    where t_teacher_id = #{teacherID,jdbcType=INTEGER}
+  </update>
+  <select id="selectTeacherId" parameterType="string" resultType="int">
+    select
+    COUNT(1)
+    from t_teacher
+    where t_teacher_id = #{teacherId,jdbcType=VARCHAR}
+  </select>
+  <insert id="batchInset" parameterType="list">
+    insert into t_teacher (t_teacher_name, t_teacher_id,t_teacher_sex)
+    values
+    <foreach collection="teacherDTOList" index="index" item="item" separator=",">
+      (
+      #{item.teacherName,jdbcType=VARCHAR}, #{item.teacherId,jdbcType=VARCHAR},#{item.teacherSex,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+  <delete id="deleteByTeacherId" parameterType="string" >
+    delete from t_teacher
+    where t_teacher_id = #{teacherId,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectAll" resultMap="TeacherDTOResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_teacher
+  </select>
+  <select id="selectLikeName" resultMap="TeacherDTOResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_teacher
+    WHERE t_teacher_name LIKE #{name}
+  </select>
+</mapper>

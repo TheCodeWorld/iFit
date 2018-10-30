@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.ModelClassMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.ModelClass" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="model_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="SubjectVoMap" type="team.njupt.ifit.vo.SubjectVo">
+    <result property="id" column="id"/>
+    <result property="examName" column="exam_name"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, model_name
+  </sql>
+  <select id="selectByModelName" resultType="int" parameterType="string" >
+    select 
+    COUNT(1)
+    from model_class
+    where model_name = #{modelName,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from model_class
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="string" >
+    insert into model_class (model_name)
+    values (#{modelName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.ModelClass" >
+    insert into model_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="modelName != null" >
+        model_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="modelName != null" >
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="team.njupt.ifit.pojo.ModelClass" >
+    update model_class
+    <set >
+      <if test="modelName != null" >
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.njupt.ifit.pojo.ModelClass" >
+    update model_class
+    set model_name = #{modelName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByModelName" parameterType="string">
+    DELETE FROM model_class
+    WHERE model_name=#{modelClassName}
+  </delete>
+  <select id="selectModelClass" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM model_class
+  </select>
+  <select id="selectOneModelSubject" resultMap="SubjectVoMap">
+    SELECT id,exam_name
+    FROM exam_subject
+    WHERE id IN (SELECT exam_subject_id FROM exam_model WHERE model_class_id = #{modelId})
+  </select>
+</mapper>

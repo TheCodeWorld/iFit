@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.njupt.ifit.dao.ExamStandardMapper" >
+  <resultMap id="BaseResultMap" type="team.njupt.ifit.pojo.ExamStandard" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="exam_standard_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="exam_subject_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="weight" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap id="StandardDTOMap" type="team.njupt.ifit.pojo.dto.StandardDTO">
+    <result property="id" column="id"/>
+    <result property="modelStandardName" column="exam_standard_name"/>
+    <result property="weight" column="weight"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, exam_standard_name, exam_subject_id, weight
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from exam_standard
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exam_standard
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="map" >
+    insert into exam_standard (exam_standard_name, exam_subject_id,
+      weight)
+    values (#{modelStandardName,jdbcType=VARCHAR}, #{modelSubjectId,jdbcType=INTEGER},
+      #{weight,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="team.njupt.ifit.pojo.ExamStandard" >
+    insert into exam_standard
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="examStandardName != null" >
+        exam_standard_name,
+      </if>
+      <if test="examSubjectId != null" >
+        exam_subject_id,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="examStandardName != null" >
+        #{examStandardName,jdbcType=VARCHAR},
+      </if>
+      <if test="examSubjectId != null" >
+        #{examSubjectId,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="team.njupt.ifit.pojo.dto.StandardDTO" >
+    update exam_standard
+    <set >
+      <if test="modelStandardName != null and modelStandardName !=''" >
+        exam_standard_name = #{modelStandardName,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null and weight !=''" >
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="team.njupt.ifit.pojo.ExamStandard" >
+    update exam_standard
+    set exam_standard_name = #{examStandardName,jdbcType=VARCHAR},
+      exam_subject_id = #{examSubjectId,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteBySubjectId" parameterType="int">
+    DELETE FROM exam_standard
+    WHERE exam_subject_id = #{subjectId}
+  </delete>
+  <select id="countModelStandardName" parameterType="map" resultType="int">
+    SELECT COUNT(1)
+    FROM exam_standard
+    WHERE exam_standard_name = #{modelStandardName}
+    AND exam_subject_id = #{subjectId}
+  </select>
+  <select id="selectAllBySubjectId" parameterType="int" resultMap="StandardDTOMap">
+    SELECT id,exam_standard_name,weight
+    FROM exam_standard
+    WHERE exam_subject_id = #{modelSubjectId}
+  </select>
+  <select id="selectSubjectIdById" parameterType="int" resultType="int">
+    SELECT exam_subject_id
+    FROM exam_standard
+    WHERE id = #{id}
+  </select>
+</mapper>
